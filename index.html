@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Conversion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-6 text-center">Temperature Conversion</h1>
+        <div class="mb-4">
+            <label for="celsius" class="block text-gray-700 font-bold mb-2">Celsius</label>
+            <input type="number" id="celsius" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter Celsius">
+        </div>
+        <div class="mb-4">
+            <label for="fahrenheit" class="block text-gray-700 font-bold mb-2">Fahrenheit</label>
+            <input type="number" id="fahrenheit" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter Fahrenheit">
+        </div>
+        <div class="mb-4">
+            <label for="reaumur" class="block text-gray-700 font-bold mb-2">Reaumur</label>
+            <input type="number" id="reaumur" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter Reaumur">
+        </div>
+        <div class="mb-4">
+            <label for="kelvin" class="block text-gray-700 font-bold mb-2">Kelvin</label>
+            <input type="number" id="kelvin" class="w-full p-2 border border-gray-300 rounded" placeholder="Enter Kelvin">
+        </div>
+    </div>
+
+    <script>
+        const celsiusInput = document.getElementById('celsius');
+        const fahrenheitInput = document.getElementById('fahrenheit');
+        const reaumurInput = document.getElementById('reaumur');
+        const kelvinInput = document.getElementById('kelvin');
+
+        function roundToTwo(num) {
+            return +(Math.round(num + "e+2")  + "e-2");
+        }
+
+        celsiusInput.addEventListener('input', function() {
+            const celsius = parseFloat(celsiusInput.value);
+            if (!isNaN(celsius)) {
+                fahrenheitInput.value = roundToTwo((celsius * 9/5) + 32);
+                reaumurInput.value = roundToTwo(celsius * 4/5);
+                kelvinInput.value = roundToTwo(celsius + 273.15);
+            } else {
+                fahrenheitInput.value = '';
+                reaumurInput.value = '';
+                kelvinInput.value = '';
+            }
+        });
+
+        fahrenheitInput.addEventListener('input', function() {
+            const fahrenheit = parseFloat(fahrenheitInput.value);
+            if (!isNaN(fahrenheit)) {
+                celsiusInput.value = roundToTwo((fahrenheit - 32) * 5/9);
+                reaumurInput.value = roundToTwo((fahrenheit - 32) * 4/9);
+                kelvinInput.value = roundToTwo((fahrenheit - 32) * 5/9 + 273.15);
+            } else {
+                celsiusInput.value = '';
+                reaumurInput.value = '';
+                kelvinInput.value = '';
+            }
+        });
+
+        reaumurInput.addEventListener('input', function() {
+            const reaumur = parseFloat(reaumurInput.value);
+            if (!isNaN(reaumur)) {
+                celsiusInput.value = roundToTwo(reaumur * 5/4);
+                fahrenheitInput.value = roundToTwo((reaumur * 9/4) + 32);
+                kelvinInput.value = roundToTwo((reaumur * 5/4) + 273.15);
+            } else {
+                celsiusInput.value = '';
+                fahrenheitInput.value = '';
+                kelvinInput.value = '';
+            }
+        });
+
+        kelvinInput.addEventListener('input', function() {
+            const kelvin = parseFloat(kelvinInput.value);
+            if (!isNaN(kelvin)) {
+                celsiusInput.value = roundToTwo(kelvin - 273.15);
+                fahrenheitInput.value = roundToTwo((kelvin - 273.15) * 9/5 + 32);
+                reaumurInput.value = roundToTwo((kelvin - 273.15) * 4/5);
+            } else {
+                celsiusInput.value = '';
+                fahrenheitInput.value = '';
+                reaumurInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
